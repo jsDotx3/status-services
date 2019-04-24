@@ -1,2 +1,2 @@
-# status-services
-Check status services by different protocol
+# Status Services
+Check status different services with different protocol.

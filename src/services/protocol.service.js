@@ -1,12 +1,11 @@
 let services = {
-    soap: require(`services/protocol/soap.protocol`),
     ping: require(`services/protocol/ping.protocol`),
-    curl: require(`services/protocol/curl.protocol`),
     tcp: require(`services/protocol/tcp.protocol`),
+    request: require(`services/protocol/request.protocol`),
 };
 
 let resolveService = (service) => {
-    for (serviceIterator in services) {
+    for (let serviceIterator in services) {
         if(services[serviceIterator].support(service))
             return services[serviceIterator];
     }
@@ -14,6 +13,10 @@ let resolveService = (service) => {
 
 const status = async (service, host, options) => {
     let serviceProtocol = resolveService(service);
+
+    if(undefined === serviceProtocol)
+        throw new Error(`Protocol is not support`);
+
     return await serviceProtocol.status(host, options);
 };
 
