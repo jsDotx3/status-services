@@ -1,12 +1,28 @@
-const router = require('express').Router();
+const route = (path, method, controller, middlewares = [], model) => {
+    if (model !== undefined)
+        controller = controller(model)
 
-const parseRoutes = (...routes) => {
-    routes.map((route) => router[route.method.toLowerCase()](route.path, [], route.controller));
-    return router;
-};
+    return {
+        method,
+        path,
+        middlewares,
+        controller,
+    }
+}
 
-const build = (path, method, controller, middlewares = []) => {
-    return {path, method, controller, middlewares};
-};
+const parseRoutes = (routes, options = {}) => {
+    const router = require('express').Router()
+    if (options.middlewares)
+        router.use(options.middlewares)
 
-module.exports = {parseRoutes, build};
+    routes.forEach(route => {
+        return router[route.method.toLowerCase()](route.path,
+                route.middlewares || [],
+                route.controller)
+
+    })
+
+    return router
+}
+
+module.exports = { parseRoutes, route }

@@ -9,9 +9,13 @@
   "dependencies": {
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
+    "dotenv": "^8.0.0",
     "express": "~4.16.0",
+    "mongoose": "^5.6.5",
     "morgan": "~1.9.0",
+    "node-cron": "^2.0.3",
     "ping": "^0.2.2",
+    "request": "^2.88.0",
     "request-promise": "^4.2.4",
     "tcp-port-used": "^1.0.1"
   }
